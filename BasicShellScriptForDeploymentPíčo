@@ -1,0 +1,47 @@
+#! /bin/bash 
+cd /var/www/
+git clone https://github.com/KasheK420/major-os.cz.git
+touch /etc/apache2/sites-available/major-os.cz.conf
+touch /etc/apache2/sites-available/admin.major-os.cz.conf
+touch /etc/apache2/sites-available/reference.major-os.cz.conf
+touch /etc/apache2/sites-available/blog.major-os.cz.conf
+touch /etc/apache2/sites-available/travian.major-os.cz.conf
+touch /etc/apache2/sites-available/secret-hitler.major-os.cz.conf
+touch /etc/apache2/sites-available/draw.major-os.cz.conf
+touch /etc/apache2/sites-available/agar.major-os.cz.conf
+touch /etc/apache2/sites-available/turnaje.major-os.cz.conf
+touch /etc/apache2/sites-available/mc.major-os.cz.conf
+touch /etc/apache2/sites-available/csgo.major-os.cz.conf
+touch /etc/apache2/sites-available/rust.major-os.cz.conf
+touch /etc/apache2/sites-available/valorant.major-os.cz.conf
+
+
+
+#Zakaz a vymazani stareho default webu
+a2dissite 000-default.conf
+
+
+#Povoleni novych webu
+a2ensite major-os.cz.conf
+a2ensite admin.major-os.cz.conf
+a2ensite reference.major-os.cz.conf
+a2ensite blog.major-os.cz.conf
+a2ensite travian.major-os.cz.conf
+a2ensite secret-hitler.major-os.cz.conf
+a2ensite draw.major-os.cz.conf
+a2ensite agar.major-os.cz.conf
+a2ensite turnaje.major-os.cz.conf
+a2ensite mc.major-os.cz.conf
+a2ensite csgo.major-os.cz.conf
+a2ensite rust.major-os.cz.conf
+a2ensite valorant.major-os.cz.conf
+
+#Vsechny nedodelane weby smeruji na template_wip
+<VirtualHost *:80>
+ServerAdmin admin@example.com
+ServerName domain.com
+ServerAlias www.domain.com
+DocumentRoot /var/www/domain.com/public_html
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
