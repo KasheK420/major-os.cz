@@ -1,0 +1,14 @@
+#! /bin/bash
+
+# Update git repository
+git fetch
+git pull
+
+# Compile the client application in subshell
+(cd src/main/resources/client; yarn install; yarn build)
+
+# Build the jar with dependencies
+mvn clean package
+
+# Start the application
+java -jar ./target/secrethitler-1.0-SNAPSHOT-jar-with-dependencies.jar

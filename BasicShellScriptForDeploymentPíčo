@@ -1,25 +1,49 @@
 #! /bin/bash 
+echo "Changing directory to:\n"
+
 cd /var/www/
+
+pwd
+
+echo "Clonning GitHub Repo: \n"
+
 git clone https://github.com/KasheK420/major-os.cz.git
-touch /etc/apache2/sites-available/major-os.cz.conf
-touch /etc/apache2/sites-available/admin.major-os.cz.conf
-touch /etc/apache2/sites-available/reference.major-os.cz.conf
-touch /etc/apache2/sites-available/blog.major-os.cz.conf
-touch /etc/apache2/sites-available/travian.major-os.cz.conf
-touch /etc/apache2/sites-available/secret-hitler.major-os.cz.conf
-touch /etc/apache2/sites-available/draw.major-os.cz.conf
-touch /etc/apache2/sites-available/agar.major-os.cz.conf
-touch /etc/apache2/sites-available/turnaje.major-os.cz.conf
-touch /etc/apache2/sites-available/mc.major-os.cz.conf
-touch /etc/apache2/sites-available/csgo.major-os.cz.conf
-touch /etc/apache2/sites-available/rust.major-os.cz.conf
-touch /etc/apache2/sites-available/valorant.major-os.cz.conf
 
+echo "Changing directory to:\n"
 
+pwd
+
+cd /etc/apache2/sites-available/
+touch major-os.cz.conf
+touch admin.major-os.cz.conf
+touch reference.major-os.cz.conf
+touch blog.major-os.cz.conf
+touch travian.major-os.cz.conf
+touch secret-hitler.major-os.cz.conf
+touch draw.major-os.cz.conf
+touch agar.major-os.cz.conf
+touch turnaje.major-os.cz.conf
+touch mc.major-os.cz.conf
+touch csgo.major-os.cz.conf
+touch rust.major-os.cz.conf
+touch valorant.major-os.cz.conf
+
+echo "Stopping apache:\n"
+
+systemctl stop apache2
+systemctl status apache2
+
+echo "Starting apache::\n"
+
+systemctl start apache2
+systemctl status apache2
+
+echo "Turning off default website\n"
 
 #Zakaz a vymazani stareho default webu
 a2dissite 000-default.conf
 
+echo "Enabling websites\n"
 
 #Povoleni novych webu
 a2ensite major-os.cz.conf
@@ -36,12 +60,144 @@ a2ensite csgo.major-os.cz.conf
 a2ensite rust.major-os.cz.conf
 a2ensite valorant.major-os.cz.conf
 
+echo "Restarting apache: \n\n"
+systemctl restart apache2
+systemctl status apache2
+
+echo "Copying files....\n"
+
 #Vsechny nedodelane weby smeruji na template_wip
+echo "major-os.cz DONE \n\n"
+cat > major-os.cz.conf <<- EOM
 <VirtualHost *:80>
-ServerAdmin admin@example.com
-ServerName domain.com
-ServerAlias www.domain.com
-DocumentRoot /var/www/domain.com/public_html
+ServerAdmin majoros.lukas@seznam.cz
+ServerName major-os.cz
+ServerAlias www.major-os.cz
+DocumentRoot /var/www/major-os.cz/
 ErrorLog ${APACHE_LOG_DIR}/error.log
 CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
+EOM
+echo "admin.major-os.cz DONE \n\n"
+cat > admin.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName admin.major-os.cz
+ServerAlias www.admin.major-os.cz
+DocumentRoot /var/www/major-os.cz/admin/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "reference.major-os.cz DONE \n\n"
+cat > reference.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName reference.major-os.cz
+ServerAlias www.reference.major-os.cz
+DocumentRoot /var/www/major-os.cz/reference/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "blog.major-os.cz DONE \n\n"
+cat > blog.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName blog.major-os.cz
+ServerAlias www.blog.major-os.cz
+DocumentRoot /var/www/major-os.cz/blog/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "travian.major-os.cz DONE \n\n"
+cat > travian.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName travian.major-os.cz
+ServerAlias www.travian.major-os.cz
+DocumentRoot /var/www/major-os.cz/travian/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "secret-hitler.major-os.cz DONE \n\n"
+cat > secret-hitler.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName major-os.cz
+ServerAlias www.secret-hitler.major-os.cz
+DocumentRoot /var/www/major-os.cz/secret-hitler/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "draw.major-os.cz DONE \n\n"
+cat > draw.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName major-os.cz
+ServerAlias www.draw.major-os.cz
+DocumentRoot /var/www/major-os.cz/template_wip/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "turnaje.major-os.cz DONE \n\n"
+cat > turnaje.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName turnaje.major-os.cz
+ServerAlias www.turnaje.major-os.cz
+DocumentRoot /var/www/major-os.cz/template_wip/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "mc.major-os.cz DONE \n\n"
+cat > mc.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName mc.major-os.cz
+ServerAlias www.mc.major-os.cz
+DocumentRoot /var/www/major-os.cz/template_wip/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "csgo.major-os.cz DONE \n\n"
+cat > csgo.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName csgo.major-os.cz
+ServerAlias www.csgo.major-os.cz
+DocumentRoot /var/www/major-os.cz/template_wip/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "rust.major-os.cz DONE \n\n"
+cat > rust.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName rust.major-os.cz
+ServerAlias www.rust.major-os.cz
+DocumentRoot /var/www/major-os.cz/template_wip/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "valorant.major-os.cz DONE \n\n"
+cat > valorant.major-os.cz.conf <<- EOM
+<VirtualHost *:80>
+ServerAdmin majoros.lukas@seznam.cz
+ServerName valorant.major-os.cz
+ServerAlias www.valorant.major-os.cz
+DocumentRoot /var/www/major-os.cz/template_wip/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOM
+echo "Status of apache2: \n\n"
+systemctl status apache2
