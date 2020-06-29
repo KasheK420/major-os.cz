@@ -4,15 +4,15 @@ echo "Changing directory to:\n"
 cd /var/www/
 
 pwd
-
+sleep 5
 echo "Clonning GitHub Repo: \n"
 
 git clone https://github.com/KasheK420/major-os.cz.git
-
+sleep 5
 echo "Changing directory to:\n"
 
 pwd
-
+sleep 5
 cd /etc/apache2/sites-available/
 touch major-os.cz.conf
 touch admin.major-os.cz.conf
@@ -27,21 +27,33 @@ touch mc.major-os.cz.conf
 touch csgo.major-os.cz.conf
 touch rust.major-os.cz.conf
 touch valorant.major-os.cz.conf
+sleep 5
 
+
+echo "Turning off Apache\n"
+
+#Zakaz a vymazani stareho default webu
+a2dissite 000-default.conf
+a2dissite major-os.cz.conf
+a2dissite admin.major-os.cz.conf
+a2dissite reference.major-os.cz.conf
+a2dissite blog.major-os.cz.conf
+a2dissite travian.major-os.cz.conf
+a2dissite secret-hitler.major-os.cz.conf
+a2dissite draw.major-os.cz.conf
+a2dissite agar.major-os.cz.conf
+a2dissite turnaje.major-os.cz.conf
+a2dissite mc.major-os.cz.conf
+a2dissite csgo.major-os.cz.conf
+a2dissite rust.major-os.cz.conf
+a2dissite valorant.major-os.cz.conf
+sleep 5
 echo "Stopping apache:\n"
 
 systemctl stop apache2
 systemctl status apache2
+sleep 5
 
-echo "Starting apache::\n"
-
-systemctl start apache2
-systemctl status apache2
-
-echo "Turning off default website\n"
-
-#Zakaz a vymazani stareho default webu
-a2dissite 000-default.conf
 
 echo "Enabling websites\n"
 
@@ -59,11 +71,11 @@ a2ensite mc.major-os.cz.conf
 a2ensite csgo.major-os.cz.conf
 a2ensite rust.major-os.cz.conf
 a2ensite valorant.major-os.cz.conf
-
+sleep 5
 echo "Restarting apache: \n\n"
 systemctl restart apache2
 systemctl status apache2
-
+sleep 5
 echo "Copying files....\n"
 
 #Vsechny nedodelane weby smeruji na template_wip
@@ -199,5 +211,7 @@ ErrorLog ${APACHE_LOG_DIR}/error.log
 CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 EOM
+sleep 5
 echo "Status of apache2: \n\n"
 systemctl status apache2
+sleep 5
